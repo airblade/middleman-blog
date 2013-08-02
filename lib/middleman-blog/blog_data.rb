@@ -111,11 +111,11 @@ module Middleman
           elsif resource.path =~ @subdir_matcher
             match = $~.captures
 
-            article_path = options.sources.
-              sub(':year', match[@matcher_indexes["year"]]).
-              sub(':month', match[@matcher_indexes["month"]]).
-              sub(':day', match[@matcher_indexes["day"]]).
-              sub(':title', match[@matcher_indexes["title"]])
+            article_path = options.sources.sub(':year', match[@matcher_indexes["year"]]) if @matcher_indexes["year"]
+            article_path = options.sources.sub(':month', match[@matcher_indexes["month"]]) if @matcher_indexes["month"]
+            article_path = options.sources.sub(':day', match[@matcher_indexes["day"]]) if @matcher_indexes["day"]
+            article_path = options.sources.sub(':title', match[@matcher_indexes["title"]])
+
 
             article = @app.sitemap.find_resource_by_path(article_path)
             raise "Article for #{resource.path} not found" if article.nil?
